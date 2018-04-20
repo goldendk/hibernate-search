@@ -61,7 +61,7 @@ public class IndexAndSearchTest {
 		List<Book> books = search( "hibernate" );
 		assertEquals( "Should get empty list since nothing is indexed yet", 0, books.size() );
 
-	//	index();
+		//index();
 
 		// search by title
 		books = search( "hibernate" );
@@ -77,7 +77,7 @@ public class IndexAndSearchTest {
 	@Test
 	public void testStemming() throws Exception {
 
-        //index();
+       index();
 
         List<Book> books = search("refactor");
         assertEquals("Wrong title", "Refactoring: Improving the Design of Existing Code", books.get(0).getTitle());

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/hibernate-search.iml" filepath="$PROJECT_DIR$/hibernate-search.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hibernate-search_main.iml" filepath="$PROJECT_DIR$/.idea/modules/hibernate-search_main.iml" group="hibernate-search" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hibernate-search_test.iml" filepath="$PROJECT_DIR$/.idea/modules/hibernate-search_test.iml" group="hibernate-search" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hibernate-search2.iml" filepath="$PROJECT_DIR$/.idea/modules/hibernate-search2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hibernate-search2_main.iml" filepath="$PROJECT_DIR$/.idea/modules/hibernate-search2_main.iml" group="hibernate-search2" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hibernate-search2_test.iml" filepath="$PROJECT_DIR$/.idea/modules/hibernate-search2_test.iml" group="hibernate-search2" />
     </modules>
   </component>
 </project>

@@ -12,6 +12,8 @@
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
     <bytecodeTargetLevel>
+      <module name="hibernate-search2_main" target="1.8" />
+      <module name="hibernate-search2_test" target="1.8" />
       <module name="hibernate-search_main" target="1.8" />
       <module name="hibernate-search_test" target="1.8" />
     </bytecodeTargetLevel>

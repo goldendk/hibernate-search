@@ -3,10 +3,7 @@ package org.goldenworkshop;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
@@ -38,6 +35,8 @@ import org.hibernate.search.annotations.TokenizerDef;
 @Indexed
 public class Book {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
 	private String title;
 	private String subtitle;
