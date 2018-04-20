@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.hibernate:hibernate-search-backend-jgroups:5.5.0.Final">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-search-backend-jgroups/5.5.0.Final/f90068abf41e65e3bde2dee5ea8328de99e26af0/hibernate-search-backend-jgroups-5.5.0.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-search-backend-jgroups/5.5.0.Final/88b47e3b5b78cf8c0d5067d9e2e65145af801552/hibernate-search-backend-jgroups-5.5.0.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.infinispan:infinispan-lucene-directory:8.1.0.Final">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.infinispan/infinispan-lucene-directory/8.1.0.Final/984148ec5ef44f7189ff9528c505f6f10b638ee0/infinispan-lucene-directory-8.1.0.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.infinispan/infinispan-lucene-directory/8.1.0.Final/4e284ae9f09b174f1d3a72654d4f43b218c3de75/infinispan-lucene-directory-8.1.0.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

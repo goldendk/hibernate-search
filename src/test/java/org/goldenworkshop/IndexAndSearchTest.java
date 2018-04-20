@@ -1,0 +1,168 @@
+package org.goldenworkshop;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import org.apache.lucene.analysis.Analyzer;
+
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.util.QueryBuilder;
+import org.apache.lucene.util.Version;
+import org.hibernate.CacheMode;
+import org.hsqldb.User;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * Example testcase for Hibernate Search
+ */
+public class IndexAndSearchTest {
+
+	private EntityManagerFactory emf;
+
+	private EntityManager em;
+
+	private static Logger log = LoggerFactory.getLogger( IndexAndSearchTest.class );
+
+	@BeforeClass
+	public static void beforeClass(){
+		System.setProperty("java.net.preferIPv4Stack", "true");
+	}
+	@Before
+	public void setUp() {
+		initHibernate();
+	}
+
+	@After
+	public void tearDown() {
+
+
+	    //purge();
+	}
+
+	@Test
+	public void testIndexAndSearch() throws Exception {
+		List<Book> books = search( "hibernate" );
+		assertEquals( "Should get empty list since nothing is indexed yet", 0, books.size() );
+
+	//	index();
+
+		// search by title
+		books = search( "hibernate" );
+		assertEquals( "Should find one book", 1, books.size() );
+		assertEquals( "Wrong title", "Java Persistence with Hibernate", books.get( 0 ).getTitle() );
+
+		// search author
+		books = search( "\"Gavin King\"" );
+		assertEquals( "Should find one book", 1, books.size() );
+		assertEquals( "Wrong title", "Java Persistence with Hibernate", books.get( 0 ).getTitle() );
+	}
+
+	@Test
+	public void testStemming() throws Exception {
+
+        //index();
+
+        List<Book> books = search("refactor");
+        assertEquals("Wrong title", "Refactoring: Improving the Design of Existing Code", books.get(0).getTitle());
+
+        books = search("refactors");
+        assertEquals("Wrong title", "Refactoring: Improving the Design of Existing Code", books.get(0).getTitle());
+
+        books = search("refactored");
+        assertEquals("Wrong title", "Refactoring: Improving the Design of Existing Code", books.get(0).getTitle());
+
+        books = search("refactoring");
+        assertEquals("Wrong title", "Refactoring: Improving the Design of Existing Code", books.get(0).getTitle());
+
+        emf.close();
+    }
+
+
+	private void initHibernate() {
+		emf = Persistence.createEntityManagerFactory( "hibernate-search-example" );
+		em = emf.createEntityManager();
+	}
+
+	private void index() {
+		FullTextEntityManager ftEm = org.hibernate.search.jpa.Search.getFullTextEntityManager( em );
+
+
+
+		try {
+
+			ftEm.createIndexer( Book.class )
+					.batchSizeToLoadObjects( 1000 )
+					.cacheMode( CacheMode.IGNORE )
+					.threadsToLoadObjects( 2 )
+					.idFetchSize( 500 )
+					.transactionTimeout( 1800 )
+					.startAndWait();
+		}
+		catch ( InterruptedException e ) {
+			log.error( "Was interrupted during indexing", e );
+		}
+	}
+
+	private void purge() {
+		FullTextEntityManager ftEm = org.hibernate.search.jpa.Search.getFullTextEntityManager( em );
+		ftEm.purgeAll( Book.class );
+		ftEm.flushToIndexes();
+		ftEm.close();
+		emf.close();
+	}
+
+	private List<Book> search(String searchQuery) throws ParseException {
+		Query query = searchQuery( searchQuery );
+
+		List<Book> books = query.getResultList();
+
+		for ( Book b : books ) {
+			log.info( "Title: " + b.getTitle() );
+		}
+		return books;
+	}
+
+	private Query searchQuery(String searchQuery) throws ParseException {
+
+		String[] bookFields = { "title", "subtitle", "authors.name"};
+
+		//lucene part
+		Map<String, Float> boostPerField = new HashMap<String, Float>( 4 );
+		boostPerField.put( bookFields[0], (float) 4 );
+		boostPerField.put( bookFields[1], (float) 3 );
+		boostPerField.put( bookFields[2], (float) 4 );
+
+
+
+
+		FullTextEntityManager ftEm = org.hibernate.search.jpa.Search.getFullTextEntityManager( em );
+
+		Analyzer customAnalyzer = ftEm.getSearchFactory().getAnalyzer( "customanalyzer" );
+
+		QueryParser parser = new MultiFieldQueryParser(bookFields, customAnalyzer, boostPerField);
+
+		org.apache.lucene.search.Query luceneQuery;
+		luceneQuery = parser.parse( searchQuery );
+
+		final FullTextQuery query = ftEm.createFullTextQuery( luceneQuery, Book.class );
+
+		return query;
+	}
+}
