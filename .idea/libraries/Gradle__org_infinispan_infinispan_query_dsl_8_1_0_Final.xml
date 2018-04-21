@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.infinispan:infinispan-query-dsl:8.1.0.Final">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.infinispan/infinispan-query-dsl/8.1.0.Final/c1fab0c7c94b715585ebc7d796990686e0b840d5/infinispan-query-dsl-8.1.0.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.infinispan/infinispan-query-dsl/8.1.0.Final/662a810bc4b78167139cb9f1394db38cb64e1ecd/infinispan-query-dsl-8.1.0.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -10,10 +10,12 @@ dependencies {
     compile 'org.hibernate:hibernate-search-orm:5.5.0.Final'
     // https://mvnrepository.com/artifact/org.infinispan/infinispan-directory-provider
     compile 'org.infinispan:infinispan-directory-provider:8.1.0.Final'
+// https://mvnrepository.com/artifact/org.infinispan/infinispan-query
+    compile group: 'org.infinispan', name: 'infinispan-query', version: '8.1.0.Final'
 
 // https://mvnrepository.com/artifact/org.hibernate/hibernate-search-backend-jgroups
     compile group: 'org.hibernate', name: 'hibernate-search-backend-jgroups', version: '5.5.0.Final'
-
+    compile 'org.hibernate:hibernate-search-serialization-avro:5.5.8.Final'
     // https://mvnrepository.com/artifact/org.apache.lucene/lucene-queryparser
     compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: '5.3.0'
 

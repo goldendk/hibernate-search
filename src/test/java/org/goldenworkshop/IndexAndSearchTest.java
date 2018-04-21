@@ -77,8 +77,7 @@ public class IndexAndSearchTest {
 	@Test
 	public void testStemming() throws Exception {
 
-       index();
-
+      index();
         List<Book> books = search("refactor");
         assertEquals("Wrong title", "Refactoring: Improving the Design of Existing Code", books.get(0).getTitle());
 

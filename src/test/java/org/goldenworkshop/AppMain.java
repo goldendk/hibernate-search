@@ -4,6 +4,7 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.hibernate.CacheMode;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.slf4j.Logger;
@@ -33,14 +34,14 @@ public class AppMain {
 
         // search by title
         books = search( "hibernate" );
-        assertEquals( "Should find one book", 1, books.size() );
-        assertEquals( "Wrong title", "Java Persistence with Hibernate", books.get( 0 ).getTitle() );
+//        assertEquals( "Should find one book", 1, books.size() );
+//        assertEquals( "Wrong title", "Java Persistence with Hibernate", books.get( 0 ).getTitle() );
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Waiting for next input....");
         String scannerValue = null;
         while(true){
-            scannerValue = scanner.next();
+            scannerValue = scanner.nextLine();
             try{
 
             if("exit".equalsIgnoreCase(scannerValue)){
@@ -59,8 +60,14 @@ public class AppMain {
                 transaction.commit();
             }
             else if(scannerValue.startsWith("search")){
-                search(scannerValue.replace("search ", ""));
+                String search_ = scannerValue.replace("search ", "");
+                System.out.println("Searching: " + search_);
+                search(search_);
             }
+            else if(scannerValue.startsWith("reindex")){
+                index();
+            }
+
 
             }catch(Exception e){
                 e.printStackTrace();
@@ -69,6 +76,26 @@ public class AppMain {
 
         em.close();
         emf.close();
+    }
+
+    private static void index() {
+        FullTextEntityManager ftEm = org.hibernate.search.jpa.Search.getFullTextEntityManager( em );
+
+
+
+        try {
+
+            ftEm.createIndexer( Book.class )
+                    .batchSizeToLoadObjects( 1000 )
+                    .cacheMode( CacheMode.IGNORE )
+                    .threadsToLoadObjects( 2 )
+                    .idFetchSize( 500 )
+                    .transactionTimeout( 1800 )
+                    .startAndWait();
+        }
+        catch ( InterruptedException e ) {
+            log.error( "Was interrupted during indexing", e );
+        }
     }
 
     private static List<Book> search(String searchQuery) throws ParseException {
@@ -105,4 +132,5 @@ public class AppMain {
 
         return query;
     }
+
 }

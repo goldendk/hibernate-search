@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.hibernate:hibernate-search-serialization-avro:5.5.8.Final">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-search-serialization-avro/5.5.8.Final/e13e7d18d4e9ae47e5503dd26646ece1594b8b7/hibernate-search-serialization-avro-5.5.8.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-search-serialization-avro/5.5.8.Final/65691e5d6f70576c07763a050834f97e54bf032f/hibernate-search-serialization-avro-5.5.8.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.infinispan:infinispan-objectfilter:8.1.0.Final">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.infinispan/infinispan-objectfilter/8.1.0.Final/fc9ae48cd14de7783679261df19d281c817904d9/infinispan-objectfilter-8.1.0.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.infinispan/infinispan-objectfilter/8.1.0.Final/62e0edd56998870856173ed5fe7044a012da0852/infinispan-objectfilter-8.1.0.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
