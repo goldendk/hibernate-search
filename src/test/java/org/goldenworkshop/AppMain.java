@@ -44,29 +44,29 @@ public class AppMain {
             scannerValue = scanner.nextLine();
             try{
 
-            if("exit".equalsIgnoreCase(scannerValue)){
-                break;
-            }
+                if("exit".equalsIgnoreCase(scannerValue)){
+                    break;
+                }
 
-            if(scannerValue.startsWith("book")){
-                Book book = new Book();
-                EntityTransaction transaction = em.getTransaction();
-                transaction.begin();
+                if(scannerValue.startsWith("book")){
+                    Book book = new Book();
+                    EntityTransaction transaction = em.getTransaction();
+                    transaction.begin();
 
-                book.setId((int) ((Math.random() * 10_000_000) + 300_000));
-                book.setTitle(scannerValue);
+                    book.setId((int) ((Math.random() * 10_000_000) + 300_000));
+                    book.setTitle(scannerValue);
 
-                em.persist(book);
-                transaction.commit();
-            }
-            else if(scannerValue.startsWith("search")){
-                String search_ = scannerValue.replace("search ", "");
-                System.out.println("Searching: " + search_);
-                search(search_);
-            }
-            else if(scannerValue.startsWith("reindex")){
-                index();
-            }
+                    em.persist(book);
+                    transaction.commit();
+                }
+                else if(scannerValue.startsWith("search")){
+                    String search_ = scannerValue.replace("search ", "");
+                    System.out.println("Searching: " + search_);
+                    search(search_);
+                }
+                else if(scannerValue.startsWith("reindex")){
+                    index();
+                }
 
 
             }catch(Exception e){
