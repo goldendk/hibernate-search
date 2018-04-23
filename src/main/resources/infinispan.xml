@@ -15,8 +15,6 @@
         <stack-file name="default-jgroups-udp" path="default-configs/default-jgroups-udp.xml"/>
     </jgroups>
 
-
-
     <cache-container name="HibernateSearch" default-cache="default" statistics="false" shutdown-hook="DONT_REGISTER">
 
         <transport stack="default-jgroups-udp"/>
@@ -25,19 +23,11 @@
             of Hibernate Search applications work - if possible it would be better to use JNDI to share
             the CacheManager across applications -->
         <jmx duplicate-domains="true"/>
-        <replicated-cache name="default">
-            <indexing index="ALL">
-                <property name="default.locking_cachename">LuceneIndexesLocking_custom</property>
-                <property name="default.data_cachename">LuceneIndexesData_custom</property>
-                <property name="default.metadata_cachename">LuceneIndexesMetadata_custom</property>
-            </indexing>
-        </replicated-cache>
 
-        <local-cache name="LuceneIndexesLocking_custom">
-            <indexing index="NONE" />
-        </local-cache>
-
-        <local-cache name="LuceneIndexesMetadata_custom">
+        <!-- *************************************** -->
+        <!--  Cache to store Lucene's file metadata  -->
+        <!-- *************************************** -->
+        <replicated-cache name="LuceneIndexesMetadata" mode="SYNC" remote-timeout="25000">
             <persistence>
                 <file-store
                         shared="false"
@@ -46,14 +36,17 @@
                         read-only="false"
                         purge="false"
 
-                        path="./target/infinispan/meta-data">
+                        path="./target/infinispan/lucene-metadata">
                     <write-behind thread-pool-size="5" />
                 </file-store>
             </persistence>
-            <indexing index="NONE" />
-        </local-cache>
+            <indexing index="ALL"/>
+        </replicated-cache>
 
-        <local-cache name="LuceneIndexesData_custom">
+        <!-- **************************** -->
+        <!--  Cache to store Lucene data  -->
+        <!-- **************************** -->
+        <replicated-cache name="LuceneIndexesData" mode="SYNC" remote-timeout="25000">
             <persistence>
                 <file-store
                         shared="false"
@@ -66,9 +59,17 @@
                     <write-behind thread-pool-size="5" />
                 </file-store>
             </persistence>
-            <indexing index="NONE" />
-        </local-cache>
+            <indexing index="ALL"/>
+
+        </replicated-cache>
+
+        <!-- ***************************** -->
+        <!--  Cache to store Lucene locks  -->
+        <!-- ***************************** -->
+        <replicated-cache name="LuceneIndexesLocking" mode="SYNC" remote-timeout="25000">
+
+            <indexing index="ALL"/>
+        </replicated-cache>
     </cache-container>
 
 </infinispan>
-
