@@ -4,10 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Store;
 
 @Entity
+@org.hibernate.annotations.Cache(usage =  CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Author {
 	@Id
 	@GeneratedValue

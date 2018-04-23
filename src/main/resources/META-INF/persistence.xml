@@ -11,6 +11,10 @@
         <class>org.goldenworkshop.Book</class>
         <properties>
 
+
+            <property name="hibernate.cache.infinispan.org.goldenworkshop.Book" value="book-cache"/>
+            <property name="hibernate.cache.infinispan.org.goldenworkshop.Author" value="book-cache"/>
+
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
             <property name="hibernate.connection.username" value="sa"/>
@@ -18,12 +22,17 @@
             <property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost/;hsqldb.write_delay=false;shutdown=true;"/>
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.cache.user_second_level_cache" value="true"/>
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.infinispan.InfinispanRegionFactory"></property>
+            <property name="hibernate.cache.default_cache_concurrency_strategy" value="transactional"/>
+            <property name="hibernate.cache.jbc.cfg.shared" value="hbn-infinispan.cfg"/>
 
-            <property name="hibernate.search.default.indexBase" value="target"/>
+
+            <!--<property name="hibernate.search.default.indexBase" value="target"/>-->
 
             <!-- optional -->
             <property name="hibernate.search.default.directory_provider" value="infinispan"/>
-            <property name="hibernate.search.default.worker.backend" value="jgroupsMaster"/>
+            <property name="hibernate.search.default.worker.backend" value="jgroupsSlave"/>
             <property name="hibernate.search.default.exclusive_index_use" value="false"/>
             <property name="hibernate.search.default.worker.execution" value="async"/>
             <property name="hibernate.search.infinispan.configuration_resourcename" value="infinispan.xml"/>

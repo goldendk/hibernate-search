@@ -1,0 +1,2 @@
+  -Djava.net.preferIPv4Stack=true
+ java -cp hsqldb-1.8.0.4.jar org.hsqldb.server.Server --database.0 file:test --dbname.0 lucene

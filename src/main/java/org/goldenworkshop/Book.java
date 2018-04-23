@@ -9,6 +9,7 @@ import javax.persistence.*;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -24,6 +25,7 @@ import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 
 @Entity
+@org.hibernate.annotations.Cache(usage =  CacheConcurrencyStrategy.TRANSACTIONAL)
 @AnalyzerDef(name = "customanalyzer",
 		tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
 		filters = {

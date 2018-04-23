@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infinispan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="urn:infinispan:config:8.1"
+            xsi:schemaLocation="urn:infinispan:config:8.1 http://www.infinispan.org/schemas/infinispan-config-8.1.xsd">
+
+    <jgroups>
+        <stack-file name="hibernate-jgroups" path="${hibernate.infinispan.jgroups.stack_file:/config/jgroups-stack-mping.xml}"/>
+    </jgroups>
+
+    <cache-container name="WssCacheManager" statistics="true" default-cache="the-default-cache" shutdown-hook="DEFAULT">
+        <transport stack="hibernate-jgroups" cluster="infinispan-hibernate-cluster"/>
+
+        <jmx duplicate-domains="true"/>
+
+        <local-cache-configuration name="the-default-cache" statistics="false" />
+
+        <!--&lt;!&ndash; Default configuration is appropriate for entity/collection caching. &ndash;&gt;-->
+        <!--<invalidation-cache-configuration name="entity" mode="SYNC" remote-timeout="20000" statistics="false" statistics-available="false">-->
+            <!--<locking concurrency-level="1000" acquire-timeout="15000"/>-->
+            <!--<transaction mode="NON_XA"-->
+                         <!--transaction-manager-lookup="org.infinispan.transaction.lookup.GenericTransactionManagerLookup"/>-->
+            <!--<eviction max-entries="10000" strategy="LRU"/>-->
+            <!--<expiration max-idle="100000" interval="5000"/>-->
+        <!--</invalidation-cache-configuration>-->
+
+        <!--&lt;!&ndash; Default configuration is appropriate for entity/collection caching. &ndash;&gt;-->
+        <!--<invalidation-cache-configuration name="collection" mode="SYNC" remote-timeout="20000" statistics="false" statistics-available="false">-->
+            <!--<locking concurrency-level="1000" acquire-timeout="15000"/>-->
+            <!--<transaction mode="NON_XA"-->
+                         <!--transaction-manager-lookup="org.infinispan.transaction.lookup.GenericTransactionManagerLookup"/>-->
+            <!--<eviction max-entries="10000" strategy="LRU"/>-->
+            <!--<expiration max-idle="100000" interval="5000"/>-->
+        <!--</invalidation-cache-configuration>-->
+
+        <!--&lt;!&ndash; A config appropriate for query caching. Does not replicate queries. &ndash;&gt;-->
+        <!--<local-cache-configuration name="local-query" statistics="false" statistics-available="false">-->
+            <!--<locking concurrency-level="1000" acquire-timeout="15000"/>-->
+            <!--<transaction mode="NONE" />-->
+            <!--<eviction max-entries="10000" strategy="LRU"/>-->
+            <!--<expiration max-idle="100000" interval="5000"/>-->
+        <!--</local-cache-configuration>-->
+
+        <!--&lt;!&ndash; A query cache that replicates queries. Replication is asynchronous. &ndash;&gt;-->
+        <!--<replicated-cache-configuration name="replicated-query" mode="ASYNC"  statistics="false" statistics-available="false">-->
+            <!--<locking concurrency-level="1000" acquire-timeout="15000"/>-->
+            <!--<transaction mode="NONE" />-->
+            <!--<eviction max-entries="10000" strategy="LRU"/>-->
+            <!--<expiration max-idle="100000" interval="5000"/>-->
+        <!--</replicated-cache-configuration>-->
+
+        <!--&lt;!&ndash; Optimized for timestamp caching. A clustered timestamp cache-->
+             <!--is required if query caching is used, even if the query cache-->
+             <!--itself is configured with CacheMode=LOCAL. &ndash;&gt;-->
+        <!--<replicated-cache-configuration name="timestamps" mode="ASYNC" statistics="false" statistics-available="false">-->
+            <!--<locking concurrency-level="1000" acquire-timeout="15000"/>-->
+            <!--&lt;!&ndash; Explicitly non transactional &ndash;&gt;-->
+            <!--<transaction mode="NONE"/>-->
+            <!--&lt;!&ndash;  Don't ever evict modification timestamps &ndash;&gt;-->
+            <!--<eviction strategy="NONE"/>-->
+            <!--<expiration interval="0"/>-->
+        <!--</replicated-cache-configuration>-->
+
+
+
+
+        <invalidation-cache name="book-cache">
+            <locking concurrency-level="1000" acquire-timeout="15000"/>
+            <transaction mode="NON_XA"
+                         transaction-manager-lookup="org.infinispan.transaction.lookup.GenericTransactionManagerLookup"/>
+            <eviction size="10000" strategy="LRU"/>
+            <expiration max-idle="100000" interval="5000"/>
+        </invalidation-cache>
+        <invalidation-cache name="author-cache">
+            <locking concurrency-level="1000" acquire-timeout="15000"/>
+            <transaction mode="NON_XA"
+                         transaction-manager-lookup="org.infinispan.transaction.lookup.GenericTransactionManagerLookup"/>
+            <eviction size="10000" strategy="LRU"/>
+            <expiration max-idle="100000" interval="5000" lifespan="300000"/>
+        </invalidation-cache>
+
+
+    </cache-container>
+
+</infinispan>

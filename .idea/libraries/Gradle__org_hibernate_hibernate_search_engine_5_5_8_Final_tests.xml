@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.hibernate:hibernate-search-engine:tests:5.5.8.Final">
+  <library name="Gradle: org.hibernate:hibernate-search-engine:5.5.8.Final:tests">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-search-engine/5.5.8.Final/a915be28b8cb771151b19aea1d274787c293e598/hibernate-search-engine-5.5.8.Final-tests.jar!/" />
     </CLASSES>
