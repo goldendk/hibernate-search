@@ -28,38 +28,13 @@
         <!--  Cache to store Lucene's file metadata  -->
         <!-- *************************************** -->
         <replicated-cache name="LuceneIndexesMetadata" mode="SYNC" remote-timeout="25000">
-            <persistence>
-                <file-store
-                        shared="false"
-                        preload="true"
-                        fetch-state="true"
-                        read-only="false"
-                        purge="false"
 
-                        path="./target/infinispan/lucene-metadata">
-                    <write-behind thread-pool-size="5" />
-                </file-store>
-            </persistence>
-            <indexing index="ALL"/>
         </replicated-cache>
 
         <!-- **************************** -->
         <!--  Cache to store Lucene data  -->
         <!-- **************************** -->
         <replicated-cache name="LuceneIndexesData" mode="SYNC" remote-timeout="25000">
-            <persistence>
-                <file-store
-                        shared="false"
-                        preload="true"
-                        fetch-state="true"
-                        read-only="false"
-                        purge="false"
-
-                        path="./target/infinispan/lucene-data">
-                    <write-behind thread-pool-size="5" />
-                </file-store>
-            </persistence>
-            <indexing index="ALL"/>
 
         </replicated-cache>
 
@@ -68,7 +43,7 @@
         <!-- ***************************** -->
         <replicated-cache name="LuceneIndexesLocking" mode="SYNC" remote-timeout="25000">
 
-            <indexing index="ALL"/>
+
         </replicated-cache>
     </cache-container>
 

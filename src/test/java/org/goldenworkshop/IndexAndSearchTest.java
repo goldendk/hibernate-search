@@ -61,7 +61,7 @@ public class IndexAndSearchTest {
 		List<Book> books = search( "hibernate" );
 		assertEquals( "Should get empty list since nothing is indexed yet", 0, books.size() );
 
-		//index();
+		index();
 
 		// search by title
 		books = search( "hibernate" );
