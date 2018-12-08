@@ -15,6 +15,8 @@
         <stack-file name="default-jgroups-udp" path="default-configs/default-jgroups-udp.xml"/>
     </jgroups>
 
+
+
     <cache-container name="HibernateSearch" default-cache="default" statistics="false" shutdown-hook="DONT_REGISTER">
 
         <transport stack="default-jgroups-udp"/>
@@ -23,28 +25,34 @@
             of Hibernate Search applications work - if possible it would be better to use JNDI to share
             the CacheManager across applications -->
         <jmx duplicate-domains="true"/>
-
-        <!-- *************************************** -->
-        <!--  Cache to store Lucene's file metadata  -->
-        <!-- *************************************** -->
-        <replicated-cache name="LuceneIndexesMetadata" mode="SYNC" remote-timeout="25000">
+        <replicated-cache name="default">
 
         </replicated-cache>
 
-        <!-- **************************** -->
-        <!--  Cache to store Lucene data  -->
-        <!-- **************************** -->
-        <replicated-cache name="LuceneIndexesData" mode="SYNC" remote-timeout="25000">
+        <local-cache name="LuceneIndexesLocking_custom">
+            <indexing index="NONE" />
+        </local-cache>
 
-        </replicated-cache>
+        <local-cache name="LuceneIndexesMetadata_custom">
 
-        <!-- ***************************** -->
-        <!--  Cache to store Lucene locks  -->
-        <!-- ***************************** -->
-        <replicated-cache name="LuceneIndexesLocking" mode="SYNC" remote-timeout="25000">
+        </local-cache>
 
+        <local-cache name="LuceneIndexesData_custom">
+            <persistence>
+                <file-store
+                        shared="false"
+                        preload="true"
+                        fetch-state="true"
+                        read-only="false"
+                        purge="false"
 
-        </replicated-cache>
+                        path="./target/infinispan/lucene-data">
+                    <write-behind thread-pool-size="5" />
+                </file-store>
+            </persistence>
+            <indexing index="NONE" />
+        </local-cache>
     </cache-container>
 
 </infinispan>
+

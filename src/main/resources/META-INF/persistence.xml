@@ -35,7 +35,7 @@
             <property name="hibernate.search.default.worker.backend" value="jgroupsSlave"/>
             <property name="hibernate.search.default.exclusive_index_use" value="false"/>
             <property name="hibernate.search.default.worker.execution" value="async"/>
-            <property name="hibernate.search.infinispan.configuration_resourcename" value="infinispan.xml"/>
+            <property name="hibernate.search.infinispan.configuration_resourcename" value="infinispan_hbn_search.xml"/>
         </properties>
 
     </persistence-unit>
